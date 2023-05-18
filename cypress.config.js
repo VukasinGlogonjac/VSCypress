@@ -8,7 +8,8 @@ module.exports = defineConfig({
     baseUrl: 'https://cypress.vivifyscrum-stage.com/',
     env: {
       email: 'vuleglogonjac+13@gmail.com',
-      password: 'test1234'
+      password: 'test1234',
+      apiUrl: 'https://cypress-api.vivifyscrum-stage.com/api/v2/tasks'
     }
   },
 });

@@ -1,24 +1,25 @@
 /// <reference types="Cypress" />
 import "cypress-real-events/support";
 import { labels } from "../page_object/labelsPOM";
-const { email, password } = Cypress.env()
-let taskId = ''
-let boardId = ''
+import { login } from "../page_object/loginPOM";
+const { email, password, apiUrl } = Cypress.env()
+let taskId
+let boardId
 describe('Labels', () => {
     beforeEach(() => {
-        labels.login(email, password)
+        login.login(email, password)
     })
 
-    it('Create label', () => {
+    it('Create, assert and delete labels', () => {
         cy.intercept({
             method: "POST",
             url: "https://cypress-api.vivifyscrum-stage.com/api/v2/boards",
         }).as("boardCreated");
-        labels.AddNewBtn.realHover()
-        labels.AddBoard.click()
+        labels.addNewBtn.realHover()
+        labels.addBoard.click()
         labels.nameInputField.type("New Board")
         labels.nextBtn.click()
-        labels.ScrumBtn.click()
+        labels.scrumBtn.click()
         labels.nextBtn.click()
         labels.nextBtn.click()
         labels.nextBtn.click()
@@ -26,23 +27,23 @@ describe('Labels', () => {
         cy.wait('@boardCreated').then((intercept) => {
             boardId = intercept.response.body.id
             cy.log(boardId)
-            labels.myBoardId(boardId).click()
+            labels.findMyBoardId(boardId).click()
         })
         cy.intercept({
             method: "POST",
-            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/tasks"
+            url: apiUrl
         }).as("taskCreated");
-        labels.TrigerPlace.realHover()
-        labels.NewTaskBtn.click()
-        labels.TextArea.type("New Task")
-        labels.NewTaskSave.click()
+        labels.trigerPlace.realHover()
+        labels.newTaskBtn.click()
+        labels.textArea.type("New Task")
+        labels.newTaskSave.click()
         cy.wait('@taskCreated').then((intercept) => {
             taskId = intercept.response.body.id
             cy.log(taskId)
-            labels.myTask(taskId).click()
+            labels.findMyTaskId(taskId).click()
         
         })
-        labels.ManageLabelBtn.click()
+        labels.manageLabelBtn.click()
         labels.labelTitle.type("New Label")
         labels.labelColor.click()
         labels.chooseLabelColor.clear()
