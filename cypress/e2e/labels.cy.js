@@ -2,7 +2,7 @@
 import "cypress-real-events/support";
 import { labels } from "../page_object/labelsPOM";
 import { login } from "../page_object/loginPOM";
-const { email, password, apiUrl } = Cypress.env()
+const { email, password, apiUrlTask, apiUrlBoard } = Cypress.env()
 let taskId
 let boardId
 describe('Labels', () => {
@@ -13,7 +13,7 @@ describe('Labels', () => {
     it('Create, assert and delete labels', () => {
         cy.intercept({
             method: "POST",
-            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/boards",
+            url: apiUrlBoard,
         }).as("boardCreated");
         labels.addNewBtn.realHover()
         labels.addBoard.click()
@@ -31,7 +31,7 @@ describe('Labels', () => {
         })
         cy.intercept({
             method: "POST",
-            url: apiUrl
+            url: apiUrlTask
         }).as("taskCreated");
         labels.trigerPlace.realHover()
         labels.newTaskBtn.click()
