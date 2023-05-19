@@ -66,11 +66,11 @@ class Labels {
     }
 
     get editLabelButton() {
-        return this.labelsTableRow.first().find('a').eq(-1);
+        return this.labelsTableRow.first().find('a').eq(-2);
     }
 
     get firstEditLabelButton() {
-        return this.labelsTableRow.first().find('a').eq(-1);
+        return this.labelsTableRow.first().find('a').eq(-2);
     }
 
     getEditLabelButtonByRow(row) {
