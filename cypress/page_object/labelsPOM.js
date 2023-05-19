@@ -56,6 +56,27 @@ class Labels {
     get yesBtn() {
         return cy.get('.el-button--success')
     }
+
+    get labelsTable() {
+        return cy.get('.vs-c-labels-table').find('tbody');
+    }
+
+    get labelsTableRow() {
+        return this.labelsTable.find('tr');
+    }
+
+    get editLabelButton() {
+        return this.labelsTableRow.first().find('a').eq(-1);
+    }
+
+    get firstEditLabelButton() {
+        return this.labelsTableRow.first().find('a').eq(-1);
+    }
+
+    getEditLabelButtonByRow(row) {
+        this.labelsTableRow.eq(row).find('a').eq(-1);
+    }
+
     findMyBoardId (boardId) {
         return cy.get(`a[href="/boards/${boardId}"]`)
     }
