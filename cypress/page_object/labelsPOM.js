@@ -20,11 +20,11 @@ class Labels {
     }
 
     get newTaskBtn() {
-        return cy.get("body.theme-light:nth-child(2) div.vs-theme-light:nth-child(2) div.vs-l-app main.vs-l-project div.vs-l-board div.vs-c-columns div.vs-c-col:nth-child(2) div.vs-c-task-list.vs-is-empty > button.vs-add-new-task.vs-c-btn.vs-c-btn--themify-primary.vs-c-btn--round.vs-c-btn--sm:nth-child(1)")
+        return cy.get('button[class="vs-add-new-task vs-c-btn vs-c-btn--themify-primary vs-c-btn--round vs-c-btn--sm"]')
     }
 
     get trigerPlace() {
-        return cy.get(":nth-child(2) > .vs-c-task-list")
+        return cy.get('div[class="vs-c-task-list vs-is-empty"]')
     }
 
     get textArea() {
@@ -52,7 +52,7 @@ class Labels {
     }
 
     get confirmClrBtn() {
-        return cy.get(".el-row > :nth-child(2) > .el-button > span")
+        return cy.contains("Confirm")
     }
 
     get closeBtn() {
@@ -63,24 +63,51 @@ class Labels {
         return cy.get(':nth-child(1) > .vs-c-icon-title')
     }
 
-    get allLabels () {
-        return cy.get('[data-cy="board-labels"] > span > div > .vs-c-site-logo')
+    get allLabels() {
+        return cy.get('[data-cy="board-labels"]')
     }
 
     get deleteLabelBtn() {
-        return cy.get(':nth-child(1) > .el-table_1_column_6 > .cell > .vs-c-labels-table-worklog-cell > .vs-u-text--right > button.el-button > span')
+        return cy.get('button[class="vs-c-btn vs-c-btn--warning vs-c-btn--spaced"]')
     }
 
     get yesBtn() {
-        return cy.get('.el-button--success')
+        return cy.get('button[name="save-btn"]')
     }
 
-    findMyBoardId (boardId) {
+    get labelsTable() {
+        return cy.get('.vs-c-labels-table').find('tbody');
+    }
+
+    get labelsTableRow() {
+        return this.labelsTable.find('tr');
+    }
+
+    get firstEditLabelButton() {
+        return this.labelsTableRow.first().find('a').eq(-1);
+    }
+
+    labelSucces() {
+        
+        labels.manageLabelBtn.click()
+        labels.labelTitle.type("New Label")
+        labels.labelColor.click()
+        labels.chooseLabelColor.clear()
+        labels.chooseLabelColor.type("#6bb9e8")
+        labels.confirmClrBtn.click()
+        labels.closeBtn.click()
+        labels.allLabels.click()
+        labels.firstEditLabelButton.click()
+        labels.deleteLabelBtn.click()
+        labels.yesBtn.realClick()
+    }
+
+    findMyBoardId(boardId) {
         return cy.get(`a[href="/boards/${boardId}"]`)
     }
-    
+
     findMyTaskId(taskId) {
         return cy.get(`div[id="task-${taskId}"]`)
     }
 }
-    export const labels = new Labels
+export const labels = new Labels
