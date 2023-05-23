@@ -86,9 +86,16 @@ class Labels {
     get firstEditLabelButton() {
         return this.labelsTableRow.first().find('a').eq(-1);
     }
-
+    get myLable() {
+        return cy.get('span[title="New Label"]')
+    }
+   
+    
     labelSucces() {
-        
+        cy.intercept({
+            method: "DELETE",
+            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/boards/*/labels/*",
+        }).as("labelDeleted");
         labels.manageLabelBtn.click()
         labels.labelTitle.type("New Label")
         labels.labelColor.click()
@@ -97,9 +104,18 @@ class Labels {
         labels.confirmClrBtn.click()
         labels.closeBtn.click()
         labels.allLabels.click()
+        labels.myLable.should('be.visible')
+        .and('have.css', 'background-color', 'rgb(107, 185, 232)')
+        this.labelsTableRow.should('have.length', '12')
         labels.firstEditLabelButton.click()
         labels.deleteLabelBtn.click()
-        labels.yesBtn.realClick()
+        labels.yesBtn.click()
+        labels.myLable.should('not.exist')
+        this.labelsTableRow.should('have.length', '11')
+        cy.wait('@labelDeleted').then((response) =>{
+        let statusCode = response.response.statusCode
+        expect(statusCode).eq(200)
+        })
     }
 
     findMyBoardId(boardId) {

@@ -83,7 +83,7 @@ Cypress.Commands.add("createTask", (body) => {
     },
     body: body
   }).then((response) => {
-    console.log(response.body.code, "CODEEEEE")
+    console.log(response.body.code, "Task")
     window.localStorage.setItem("taskCode", response.body.code);
   });
 });
