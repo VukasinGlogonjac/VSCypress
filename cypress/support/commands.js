@@ -23,7 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
+import 'cypress-file-upload';
 
 Cypress.Commands.add("loginBE", () => {
   cy.request({
@@ -110,6 +110,7 @@ Cypress.Commands.add("deleteBoard", (boardId) => {
     url: `https://cypress-api.vivifyscrum-stage.com/api/v2/boards/${boardId}`,
   });
 });
+
 
 
 

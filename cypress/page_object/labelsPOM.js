@@ -59,10 +59,6 @@ class Labels {
         return cy.get('button[name="close-item-modal-btn"]')
     }
 
-    get labelDropDown() {
-        return cy.get(':nth-child(1) > .vs-c-icon-title')
-    }
-
     get allLabels() {
         return cy.get('[data-cy="board-labels"]')
     }
@@ -117,7 +113,7 @@ class Labels {
         expect(statusCode).eq(200)
         })
     }
-
+    
     findMyBoardId(boardId) {
         return cy.get(`a[href="/boards/${boardId}"]`)
     }
