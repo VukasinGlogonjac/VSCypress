@@ -25,7 +25,7 @@ describe('Upload an image to the board', () => {
         imageUpload.tryToUploadWrongFileType();
     })
     it('Try image upload without file', () => {
-        imageUpload.tryImageUploadWithoutFile();
+        imageUpload.checkIfUploadBtnIsDisabled();
     })
 
     afterEach(() => {

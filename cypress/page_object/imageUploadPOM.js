@@ -1,7 +1,7 @@
 class ImageUpload {
 
 get avatarUploader() {
-    return cy.get('div[class="vs-c-avatar vs-c-settings-avatar-uploader"]')
+    return cy.get('.vs-c-settings-avatar-uploader')
 }
 
 get imageDragandDropPlace() {
@@ -13,21 +13,22 @@ get uploadBtn() {
 }
 
 get myImg() {
-    return cy.get('img[class="vs-c-img--avatar vs-c-img--board-avatar-lg"]')
+    return cy.get('.vs-c-img--board-avatar-lg')
 }
 
 get warningMsg() {
-    return cy.get('div[class="el-message__group"]')
+    return cy.get('.el-message__group')
 }
 
 imageUploadSuccess() {
+    this.myImg.should('not.be.visible')
     this.avatarUploader.click();
     this.imageDragandDropPlace.attachFile('img_avatar.png').invoke('show').click();
     this.uploadBtn.click();
     this.myImg.should('be.visible');
 }
 
-tryImageUploadWithoutFile() {
+checkIfUploadBtnIsDisabled() {
     this.avatarUploader.click();
     this.uploadBtn.should('be.disabled')
 }
