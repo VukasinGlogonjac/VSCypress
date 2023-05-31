@@ -11,5 +11,4 @@ describe('Creating org via frontend', () =>{
     it('Successfully created Organization',() => {
         createOrgFe.createOrganization()
     })
-
 })
