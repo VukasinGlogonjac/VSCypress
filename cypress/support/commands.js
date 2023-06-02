@@ -23,7 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
+import '@4tw/cypress-drag-drop'
 
 Cypress.Commands.add("loginBE", () => {
   cy.request({
@@ -84,7 +84,7 @@ Cypress.Commands.add("createTask", (body) => {
     body: body
   }).then((response) => {
     console.log(response.body.code, "Task")
-    window.localStorage.setItem("taskCode", response.body.code);
+    window.localStorage.setItem("taskId", response.body.id);
   });
 });
 
