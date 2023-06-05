@@ -4,7 +4,6 @@ import { storyTask } from "../fixtures/testData";
 
 
 let boardId;
-// let taskId;
 let orgId;
 let orgName = 'Nova Org'
 let boardName = 'Novi Board'
@@ -22,7 +21,6 @@ describe('Use drag and drop to move tasks', () => {
                 boardId = window.localStorage.getItem('boardId');
                 orgId = window.localStorage.getItem('orgId')
             })
-            // taskId = window.localStorage.getItem('taskId');
         });
 
     })
