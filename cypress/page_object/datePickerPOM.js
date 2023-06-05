@@ -67,6 +67,7 @@ class DatePicker {
     }
   };
 
+
   getDatePickerYear() {
     this.datepickerHeader
       .find("span")
@@ -97,7 +98,7 @@ class DatePicker {
 
   checkIfTodaysDateIsCorrect(className) {
     return this.datepicker
-      .find("td")
+      .find("tr").children('.available')
       .contains(this.getYesterday())
       .next()
       .should("contain", "Today")
@@ -114,7 +115,7 @@ class DatePicker {
 
   datePickerSuccess() {
     let yesterday = this.getYesterday();
-   
+    cy.log(this.omitZeroInFutureDate(10))
     this.taskWorklog.click();
     this.manageWorklog.click();
     this.manageDateIcon.click();
