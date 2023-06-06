@@ -45,6 +45,13 @@ class DragAndDrop {
     taskSprintStatus(sprint) {
         return this.sprintInfoField.should('contain', sprint)
     }
+    checkIfTaskNumberInBacklogChangedAssert(length) {
+        this.checkIfTaskNumberInSprintChanged
+        .children()
+        .first()
+        .invoke('hide')
+        .should('have.length', length)
+    }
 
     successfullyMoveTask() {
         this.numberOfTasksInBacklog(2)
@@ -54,11 +61,7 @@ class DragAndDrop {
         this.closeTaskBtn.click()
         this.myTask.drag('.vs-is-empty')
         this.numberOfTasksInBacklog(1)
-        this.checkIfTaskNumberInSprintChanged
-            .children()
-            .first()
-            .invoke('hide')
-            .should('have.length', 1)
+        this.checkIfTaskNumberInBacklogChangedAssert(1)
         this.sprint1listAssert('vs-is-empty', 'not.')
         this.myTask.click()
         this.taskSprintStatus('Sprint 1')
