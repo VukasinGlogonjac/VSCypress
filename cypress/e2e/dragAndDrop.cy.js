@@ -18,6 +18,7 @@ describe('Use drag and drop to move tasks', () => {
             expect(window.localStorage.getItem('orgId')).to.exist;
             cy.createScrumBoard(boardName, window.localStorage.getItem('orgId')).then(() => {
                 cy.createTask(storyTask(taskName, window.localStorage.getItem('boardId')))
+
                 boardId = window.localStorage.getItem('boardId');
                 orgId = window.localStorage.getItem('orgId')
             })
