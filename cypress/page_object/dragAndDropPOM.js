@@ -18,7 +18,7 @@ class DragAndDrop {
     }
 
     get checkIfTaskNumberInBacklogChanged() {
-        return cy.get('.vs-c-task-list').first().find('div').eq(0)
+        return this.backlogList.find('div').eq(0)
     }
 
     get myTask() {
@@ -26,11 +26,11 @@ class DragAndDrop {
     }
 
     get sprintInfoField() {
-        return cy.get('div[name="sprint-info-dropdown"]')
+        return cy.get('.vs-c-modal-status__text')
     }
 
     get closeTaskBtn() {
-        return cy.get('button[name="close-item-modal-btn"]')
+        return cy.get('.vs-c-item-modal-close')
     }
 
     sprint1listAssert(className, condition = '') {
@@ -54,7 +54,11 @@ class DragAndDrop {
         this.closeTaskBtn.click()
         this.myTask.drag('.vs-is-empty')
         this.numberOfTasksInBacklog(1)
-        this.checkIfTaskNumberInSprintChanged.children().first().invoke('hide').should('have.length', 1)
+        this.checkIfTaskNumberInSprintChanged
+            .children()
+            .first()
+            .invoke('hide')
+            .should('have.length', 1)
         this.sprint1listAssert('vs-is-empty', 'not.')
         this.myTask.click()
         this.taskSprintStatus('Sprint 1')
