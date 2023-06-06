@@ -25,7 +25,7 @@ describe('Create, assert and dates in worklog', () => {
     })
     
     it('Create worklog date successfully', () => {
-        cy.visit(`https://cypress.vivifyscrum-stage.com/boards/${boardId}/${window.localStorage.getItem('taskCode')}`)
+        cy.visit(`/boards/${boardId}/${window.localStorage.getItem('taskCode')}`)
          datePicker.datePickerSuccess();
     })
 

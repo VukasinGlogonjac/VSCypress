@@ -5,9 +5,10 @@ const currentYear = date.getFullYear();
 const currentMonth = Object.values(MONTHS)[date.getMonth()];
 
 class DatePicker {
+
   get taskBodyTabs() {
     return cy
-      .get('div[class="vs-c-modal__body-right el-col el-col-10"]')
+      .get('.vs-c-modal__body-right')
       .find(".el-tabs");
   }
 
@@ -16,15 +17,15 @@ class DatePicker {
   }
 
   get manageWorklog() {
-    return cy.get('button[title="Manage Worklog"]');
+    return this.taskBodyTabs.find('.el-icon-plus')
   }
 
   get manageDateIcon() {
-    return cy.get('i[class="el-input__icon el-icon-date"');
+    return cy.get('.el-icon-date');
   }
 
   get datepicker() {
-    return cy.get('div[class="el-picker-panel__content"]').find("tbody").eq(0);
+    return cy.get('.el-picker-panel__content').find("tbody").eq(0);
   }
 
   get datepickerHeader() {
@@ -32,7 +33,7 @@ class DatePicker {
   }
 
   get dateInputField() {
-    return cy.get('input[placeholder="Start date"]');
+    return this.taskBodyTabs.find('.el-input__inner').eq(0);
   }
 
   getYesterday = () => {
@@ -65,6 +66,7 @@ class DatePicker {
     if (date[0] == 0) {
       return date.substring(1, 2);
     }
+    return date.substring(0, 2)
   };
 
 
@@ -115,7 +117,6 @@ class DatePicker {
 
   datePickerSuccess() {
     let yesterday = this.getYesterday();
-    cy.log(this.omitZeroInFutureDate(10))
     this.taskWorklog.click();
     this.manageWorklog.click();
     this.manageDateIcon.click();
